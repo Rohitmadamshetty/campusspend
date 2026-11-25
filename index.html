@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101a32">
+  <meta name="description" content="CampusSpend student expense tracker dashboard">
+  <title>CampusSpend | Student Finance</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="icon-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="icon-receipt" viewBox="0 0 24 24"><path d="M6 3.5h12v17l-2.5-1.6-3.5 1.6-3.5-1.6L6 20.5v-17Z"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol>
+    <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="icon-wallet" viewBox="0 0 24 24"><path d="M4 6.5h15a1.5 1.5 0 0 1 1.5 1.5v10a1.5 1.5 0 0 1-1.5 1.5H5A2.5 2.5 0 0 1 2.5 17V6a2.5 2.5 0 0 1 2.5-2.5h13"/><path d="M20.5 11h-5a2 2 0 0 0 0 4h5M16 13h.01"/></symbol>
+    <symbol id="icon-chart" viewBox="0 0 24 24"><path d="M4 19.5V12M10 19.5V5M16 19.5v-9M22 19.5V8"/></symbol>
+    <symbol id="icon-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><path d="m12 12 7-7M16 5h3v3"/></symbol>
+    <symbol id="icon-settings" viewBox="0 0 24 24"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/><path d="m19.4 15 .1.1a1.7 1.7 0 1 1-2.4 2.4l-.1-.1a1.7 1.7 0 0 0-2.9 1.2v.2a1.7 1.7 0 1 1-3.4 0v-.2a1.7 1.7 0 0 0-2.9-1.2l-.1.1a1.7 1.7 0 1 1-2.4-2.4l.1-.1a1.7 1.7 0 0 0-1.2-2.9H4a1.7 1.7 0 1 1 0-3.4h.2a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a1.7 1.7 0 1 1 2.4-2.4l.1.1a1.7 1.7 0 0 0 2.9-1.2V4a1.7 1.7 0 1 1 3.4 0v.2a1.7 1.7 0 0 0 2.9 1.2l.1-.1a1.7 1.7 0 1 1 2.4 2.4l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.2a1.7 1.7 0 1 1 0 3.4h-.2a1.7 1.7 0 0 0-1.2.9Z"/></symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></symbol>
+    <symbol id="icon-bell" viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4"/></symbol>
+    <symbol id="icon-chevron" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></symbol>
+    <symbol id="icon-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="icon-arrow-up" viewBox="0 0 24 24"><path d="m7 14 5-5 5 5M12 9v11"/></symbol>
+    <symbol id="icon-arrow-down" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5M12 4v11"/></symbol>
+    <symbol id="icon-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="icon-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol>
+    <symbol id="icon-food" viewBox="0 0 24 24"><path d="M7 3v7M4.5 3v4a2.5 2.5 0 0 0 5 0V3M7 9.5V21M16 3v18M16 3c3 2 4 5 4 8h-4"/></symbol>
+    <symbol id="icon-transit" viewBox="0 0 24 24"><path d="M5 18V6a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v12M5 13h14M5 8h14M7 18v2M17 18v2M8 16h.01M16 16h.01"/><path d="M8 21h8"/></symbol>
+    <symbol id="icon-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 1 4 17.5v-12Z"/><path d="M4 17.5A2.5 2.5 0 0 1 6.5 15H20M8 7h8M8 10h6"/></symbol>
+    <symbol id="icon-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1V10Z"/></symbol>
+    <symbol id="icon-bag" viewBox="0 0 24 24"><path d="M4 8h16l1 13H3L4 8Z"/><path d="M8 9V6a4 4 0 0 1 8 0v3M9 13v.01M15 13v.01"/></symbol>
+    <symbol id="icon-star" viewBox="0 0 24 24"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z"/></symbol>
+    <symbol id="icon-health" viewBox="0 0 24 24"><path d="M12 21s-8.5-5.2-8.5-11.2A4.8 4.8 0 0 1 12 7a4.8 4.8 0 0 1 8.5 2.8C20.5 15.8 12 21 12 21Z"/><path d="M12 9v6M9 12h6"/></symbol>
+  </svg>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+      <a class="brand" href="#dashboard" aria-label="CampusSpend dashboard">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="brand-name">Campus<span>Spend</span></span>
+      </a>
+
+      <div class="nav-label">WORKSPACE</div>
+      <nav class="primary-nav" aria-label="Primary">
+        <button class="nav-link is-active" type="button" data-view="dashboard" aria-current="page">
+          <svg class="icon" aria-hidden="true"><use href="#icon-grid"/></svg><span>Dashboard</span>
+        </button>
+        <button class="nav-link" type="button" data-view="transactions">
+          <svg class="icon" aria-hidden="true"><use href="#icon-receipt"/></svg><span>Transactions</span>
+        </button>
+        <button class="nav-link" type="button" data-view="add-expense">
+          <svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg><span>Add expense</span><span class="nav-shortcut">+</span>
+        </button>
+        <button class="nav-link" type="button" data-view="budgets">
+          <svg class="icon" aria-hidden="true"><use href="#icon-wallet"/></svg><span>Budgets</span>
+        </button>
+        <button class="nav-link" type="button" data-view="analytics">
+          <svg class="icon" aria-hidden="true"><use href="#icon-chart"/></svg><span>Analytics</span>
+        </button>
+        <button class="nav-link" type="button" data-view="savings-goals">
+          <svg class="icon" aria-hidden="true"><use href="#icon-target"/></svg><span>Savings goals</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="semester-note"><span class="semester-icon">✦</span><div><strong>Fall semester</strong><small>Week 08 of 16</small></div></div>
+        <button class="nav-link settings-link" type="button" data-view="settings">
+          <svg class="icon" aria-hidden="true"><use href="#icon-settings"/></svg><span>Settings</span>
+        </button>
+        <button class="sidebar-profile" type="button" data-profile-toggle aria-expanded="false">
+          <span class="avatar avatar-sidebar" data-user-initials>JD</span>
+          <span class="profile-copy"><strong data-profile-name>Jordan Davis</strong><small>Student account</small></span>
+          <svg class="icon profile-chevron" aria-hidden="true"><use href="#icon-more"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <button class="sidebar-scrim" type="button" aria-label="Close navigation" data-sidebar-close></button>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-button menu-button" type="button" aria-label="Open navigation" aria-expanded="false" data-sidebar-toggle>
+            <svg class="icon" aria-hidden="true"><use href="#icon-menu"/></svg>
+          </button>
+          <div class="breadcrumb"><span>Workspace</span><span class="breadcrumb-divider">/</span><strong id="page-title">Dashboard</strong></div>
+        </div>
+        <div class="topbar-actions">
+          <label class="search-box">
+            <svg class="icon" aria-hidden="true"><use href="#icon-search"/></svg>
+            <input id="global-search" type="search" placeholder="Search transactions" aria-label="Search transactions">
+            <kbd>⌘ K</kbd>
+          </label>
+          <div class="popover-wrap">
+            <button class="icon-button notification-button" type="button" aria-label="Notifications" aria-expanded="false" data-notification-toggle>
+              <svg class="icon" aria-hidden="true"><use href="#icon-bell"/></svg><span class="notification-dot"></span>
+            </button>
+            <div class="popover notification-popover" data-notification-menu hidden>
+              <div class="popover-heading"><strong>Notifications</strong><span>2 new</span></div>
+              <p data-notification-type="budgetAlerts"><i class="notice-dot notice-blue"></i><span><strong>Budget check-in</strong><small id="budget-notice">Your monthly budget is looking good.</small></span></p>
+              <p data-notification-type="weeklySummary"><i class="notice-dot notice-green"></i><span><strong>Weekly summary</strong><small>Your spending is down 8% this week.</small></span></p>
+              <p data-notification-type="goalMilestones"><i class="notice-dot notice-violet"></i><span><strong>Goal milestones</strong><small>Get a note when you reach a savings target.</small></span></p>
+              <p class="notification-empty" id="notifications-empty" hidden>No notifications to show.</p>
+            </div>
+          </div>
+          <div class="profile-wrap">
+            <button class="top-profile" type="button" data-profile-toggle aria-expanded="false">
+              <span class="avatar" data-user-initials>JD</span><span class="top-profile-name" data-profile-name>Jordan Davis</span>
+              <svg class="icon profile-chevron" aria-hidden="true"><use href="#icon-chevron"/></svg>
+            </button>
+            <div class="popover profile-popover" data-profile-menu hidden>
+              <strong data-profile-name>Jordan Davis</strong><small data-profile-email>jordan.davis@campus.edu</small>
+              <button type="button" data-view="settings">Account settings</button>
+              <button type="button" data-profile-close>Close menu</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="content-wrap">
+        <section class="dashboard-view" id="dashboard" data-dashboard-view>
+          <div class="page-intro">
+            <div><p class="eyebrow" id="dashboard-date"></p><h1>Good evening, Student! <span class="greeting-spark">✦</span></h1><p class="intro-copy">Here's your financial overview.</p></div>
+            <button class="button button-primary" type="button" data-action="add-expense"><svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg>Add expense</button>
+          </div>
+
+          <div class="summary-grid" aria-label="Monthly financial summary">
+            <article class="summary-card balance-card">
+              <div class="summary-top"><span class="summary-label">Total balance</span><span class="metric-icon metric-blue"><svg class="icon" aria-hidden="true"><use href="#icon-wallet"/></svg></span></div>
+              <div class="metric-value" id="total-balance">$0.00</div>
+              <div class="metric-foot"><span class="status-pill status-neutral" id="balance-change">0%</span><span class="muted-note">vs. previous month</span></div>
+            </article>
+            <article class="summary-card">
+              <div class="summary-top"><span class="summary-label">Monthly income</span><span class="metric-icon metric-green"><svg class="icon" aria-hidden="true"><use href="#icon-arrow-down"/></svg></span></div>
+              <div class="metric-value" id="monthly-income">$0.00</div>
+              <div class="metric-foot"><span class="status-pill status-positive" id="income-change">0%</span><span class="muted-note">vs. previous month</span></div>
+            </article>
+            <article class="summary-card">
+              <div class="summary-top"><span class="summary-label">Monthly expenses</span><span class="metric-icon metric-red"><svg class="icon" aria-hidden="true"><use href="#icon-arrow-up"/></svg></span></div>
+              <div class="metric-value" id="monthly-expenses">$0.00</div>
+              <div class="metric-foot"><span class="status-pill status-positive" id="expense-change">0%</span><span class="muted-note">vs. previous month</span></div>
+            </article>
+            <article class="summary-card budget-summary">
+              <div class="summary-top"><span class="summary-label">Remaining budget</span><span class="metric-icon metric-violet"><svg class="icon" aria-hidden="true"><use href="#icon-chart"/></svg></span></div>
+              <div class="metric-value" id="remaining-budget">$0.00</div>
+              <div class="budget-track" id="budget-progress"><span></span></div>
+              <div class="metric-foot"><span class="muted-note" id="budget-used-label">0% used</span><span class="muted-note" id="budget-limit-label">of $0.00</span></div>
+            </article>
+          </div>
+
+          <div class="dashboard-grid">
+            <section class="panel spending-panel" aria-labelledby="spending-title">
+              <div class="panel-header">
+                <div><h2 id="spending-title">Spending overview</h2><p>Your income and expenses at a glance</p></div>
+                <label class="select-wrap"><span class="sr-only">Spending chart period</span><select id="analytics-period" aria-label="Spending chart period"><option value="week">This week</option><option value="month" selected>This month</option><option value="year">This year</option></select><svg class="icon" aria-hidden="true"><use href="#icon-chevron"/></svg></label>
+              </div>
+              <div class="chart-legend"><span><i class="legend-dot legend-expense"></i>Expenses</span><span><i class="legend-dot legend-income"></i>Income</span><strong id="chart-range"></strong></div>
+              <div class="chart" role="img" aria-label="Income and expenses for the selected period">
+                <div class="chart-y-labels" id="chart-y-labels"></div>
+                <div class="chart-plot">
+                  <div class="chart-gridlines" id="chart-gridlines"><i></i><i></i><i></i><i></i></div>
+                  <div class="bar-groups" id="chart-bars"></div>
+                </div>
+              </div>
+            </section>
+
+            <section class="panel category-panel" aria-labelledby="category-title">
+              <div class="panel-header"><div><h2 id="category-title">Spending by category</h2><p>Where your money is going this month</p></div></div>
+              <div class="category-list" id="category-breakdown"></div>
+            </section>
+
+            <section class="panel transactions-panel" id="transactions-panel" aria-labelledby="transactions-title">
+              <div class="panel-header"><div><h2 id="transactions-title">Recent transactions</h2><p>Your latest money moves</p></div><button class="text-action" type="button" data-view="transactions">See all <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"/></svg></button></div>
+              <div class="transaction-table-wrap">
+                <table class="transaction-table"><thead><tr><th>TRANSACTION</th><th>CATEGORY</th><th>DATE</th><th>PAYMENT METHOD</th><th>AMOUNT</th><th>TYPE</th><th><span class="sr-only">Transaction actions</span></th></tr></thead>
+                  <tbody id="transaction-list"></tbody>
+                </table>
+                <p class="empty-search" id="empty-search" hidden></p>
+              </div>
+            </section>
+
+            <section class="panel quick-actions-panel" aria-labelledby="quick-actions-title">
+              <div class="panel-header"><div><h2 id="quick-actions-title">Quick actions</h2><p>Keep your finances up to date</p></div></div>
+              <div class="quick-actions">
+                <button class="quick-action" type="button" data-action="add-expense"><span class="quick-action-icon action-expense"><svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg></span><span>Add expense</span><svg class="icon action-arrow" aria-hidden="true"><use href="#icon-arrow-right"/></svg></button>
+                <button class="quick-action" type="button" data-action="add-income"><span class="quick-action-icon action-income"><svg class="icon" aria-hidden="true"><use href="#icon-arrow-down"/></svg></span><span>Add income</span><svg class="icon action-arrow" aria-hidden="true"><use href="#icon-arrow-right"/></svg></button>
+                <button class="quick-action" type="button" data-action="view-transactions"><span class="quick-action-icon action-transactions"><svg class="icon" aria-hidden="true"><use href="#icon-receipt"/></svg></span><span>View transactions</span><svg class="icon action-arrow" aria-hidden="true"><use href="#icon-arrow-right"/></svg></button>
+                <button class="quick-action" type="button" data-action="set-budget"><span class="quick-action-icon action-budget"><svg class="icon" aria-hidden="true"><use href="#icon-wallet"/></svg></span><span>Set budget</span><svg class="icon action-arrow" aria-hidden="true"><use href="#icon-arrow-right"/></svg></button>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <dialog class="action-dialog" id="action-dialog" aria-labelledby="dialog-title">
+          <div class="dialog-heading"><div><p class="eyebrow" id="dialog-eyebrow">CAMPUSSPEND</p><h2 id="dialog-title">Add transaction</h2></div><button class="icon-button" type="button" aria-label="Close dialog" data-dialog-close><svg class="icon" aria-hidden="true"><use href="#icon-close"/></svg></button></div>
+          <form id="transaction-form" class="dialog-form" novalidate>
+            <div class="form-row">
+                <div class="form-field"><label for="transaction-type">Transaction type <span class="required-mark">*</span></label><select id="transaction-type" name="type" required aria-describedby="type-error"><option value="expense">Expense</option><option value="income">Income</option></select><small class="form-error" id="type-error" data-error-for="type" hidden></small></div>
+              <div class="form-field"><label for="transaction-amount">Amount <span class="required-mark">*</span></label><div class="input-prefix"><span class="currency-symbol" data-currency-symbol aria-hidden="true">₹</span><input id="transaction-amount" name="amount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0.00" required aria-describedby="amount-error"></div><small class="form-error" id="amount-error" data-error-for="amount" hidden></small></div>
+            </div>
+            <div class="form-field"><label for="transaction-name">Transaction title <span class="required-mark">*</span></label><input id="transaction-name" name="name" type="text" placeholder="e.g. Lunch, Bus pass, Hostel fee" required maxlength="60" aria-describedby="name-error"><small class="form-error" id="name-error" data-error-for="name" hidden></small></div>
+            <div class="form-row">
+              <div class="form-field"><label for="transaction-category">Category <span class="required-mark">*</span></label><select id="transaction-category" name="category" required aria-describedby="category-error"></select><small class="form-error" id="category-error" data-error-for="category" hidden></small></div>
+              <div class="form-field"><label for="transaction-date">Date <span class="required-mark">*</span></label><input id="transaction-date" name="date" type="date" required aria-describedby="date-error"><small class="form-error" id="date-error" data-error-for="date" hidden></small></div>
+            </div>
+            <div class="form-field"><label for="transaction-payment">Payment method <span class="required-mark">*</span></label><select id="transaction-payment" name="payment" required aria-describedby="payment-error"><option value="">Choose a method</option><option>Cash</option><option>UPI</option><option>Debit Card</option><option>Credit Card</option><option>Bank Transfer</option></select><small class="form-error" id="payment-error" data-error-for="payment" hidden></small></div>
+            <div class="form-field"><label for="transaction-description">Description <span class="optional-mark">Optional</span></label><textarea id="transaction-description" name="description" rows="2" maxlength="180" placeholder="Add a note about this transaction"></textarea></div>
+            <div class="dialog-actions"><button class="button button-quiet" type="button" data-dialog-close>Cancel</button><button class="button button-primary" type="submit">Save transaction</button></div>
+          </form>
+          <form id="budget-form" class="dialog-form" hidden>
+            <p class="form-help">Set the total amount you plan to spend this month. Your remaining budget updates as expenses are added.</p>
+            <label class="form-field">Monthly spending limit<span class="input-prefix"><span class="currency-symbol" data-currency-symbol aria-hidden="true">₹</span><input name="budget" type="number" min="1" step="0.01" placeholder="e.g. 15,000" required></span></label>
+            <div class="dialog-actions"><button class="button button-quiet" type="button" data-dialog-close>Cancel</button><button class="button button-primary" type="submit">Save budget</button></div>
+          </form>
+          <form id="category-budget-form" class="dialog-form" hidden>
+            <p class="form-help" id="category-budget-help">Choose a spending category and set a monthly limit for it.</p>
+            <label class="form-field">Category<select name="category" id="category-budget-category" required></select></label>
+            <label class="form-field">Monthly allocation<span class="input-prefix"><span class="currency-symbol" data-currency-symbol aria-hidden="true">₹</span><input name="amount" type="number" min="1" step="0.01" placeholder="e.g. 5,000" required></span></label>
+            <div class="dialog-actions"><button class="button button-quiet" type="button" data-dialog-close>Cancel</button><button class="button button-primary" type="submit">Save category budget</button></div>
+          </form>
+          <form id="savings-goal-form" class="dialog-form" novalidate hidden>
+            <div class="form-field"><label for="goal-name">Goal name <span class="required-mark">*</span></label><input id="goal-name" name="name" type="text" placeholder="e.g. Buy a laptop" maxlength="60" required></div>
+            <div class="form-row">
+              <label class="form-field" for="goal-target">Target amount <span class="required-mark">*</span><span class="input-prefix"><span class="currency-symbol" data-currency-symbol aria-hidden="true">₹</span><input id="goal-target" name="target" type="number" min="0.01" step="0.01" placeholder="e.g. 60,000" required></span></label>
+              <label class="form-field" for="goal-saved">Current saved<span class="input-prefix"><span class="currency-symbol" data-currency-symbol aria-hidden="true">₹</span><input id="goal-saved" name="saved" type="number" min="0" step="0.01" placeholder="0.00" required></span></label>
+            </div>
+            <div class="form-row">
+              <label class="form-field" for="goal-date">Target date <span class="required-mark">*</span><input id="goal-date" name="targetDate" type="date" required></label>
+              <label class="form-field" for="goal-category">Goal category <span class="required-mark">*</span><select id="goal-category" name="category" required><option>Electronics</option><option>Emergency Fund</option><option>Travel</option><option>Education</option><option>Personal</option><option>Other</option></select></label>
+            </div>
+            <div class="form-field"><label for="goal-description">Description <span class="optional-mark">Optional</span></label><textarea id="goal-description" name="description" rows="2" maxlength="180" placeholder="What are you saving for?"></textarea></div>
+            <div class="dialog-actions"><button class="button button-quiet" type="button" data-dialog-close>Cancel</button><button class="button button-primary" type="submit">Save goal</button></div>
+          </form>
+        </dialog>
+
+        <section class="transactions-view" id="transactions-page" data-transactions-view hidden>
+          <div class="page-intro transactions-intro">
+            <div><p class="eyebrow">MONEY ACTIVITY</p><h1>Transactions</h1><p class="intro-copy">Search, review and manage your transactions.</p></div>
+            <button class="button button-primary" type="button" data-action="add-expense"><svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg>Add transaction</button>
+          </div>
+          <section class="panel transaction-manager" aria-label="Transaction management">
+            <div class="transaction-filters">
+              <label class="manager-search"><svg class="icon" aria-hidden="true"><use href="#icon-search"/></svg><input id="transactions-search" type="search" placeholder="Search name, category or description" aria-label="Search transactions"></label>
+              <label class="filter-field"><span>Type</span><select id="filter-type" aria-label="Filter by transaction type"><option value="all">All transactions</option><option value="expense">Expenses</option><option value="income">Income</option></select></label>
+              <label class="filter-field"><span>Category</span><select id="filter-category" aria-label="Filter by category"><option value="all">All categories</option></select></label>
+              <label class="filter-field"><span>Payment</span><select id="filter-payment" aria-label="Filter by payment method"><option value="all">All methods</option></select></label>
+              <label class="filter-field"><span>Sort by</span><select id="sort-transactions" aria-label="Sort transactions"><option value="newest">Newest first</option><option value="oldest">Oldest first</option><option value="highest">Highest amount</option><option value="lowest">Lowest amount</option></select></label>
+              <div class="date-filter"><span>Date range</span><div><label><span class="sr-only">From date</span><input id="filter-date-from" type="date" aria-label="From date"></label><span class="date-range-divider">to</span><label><span class="sr-only">To date</span><input id="filter-date-to" type="date" aria-label="To date"></label></div></div>
+              <button class="button button-quiet clear-filters" type="button" id="clear-transaction-filters">Clear filters</button>
+            </div>
+            <div class="transaction-results-bar"><p id="transaction-result-count" aria-live="polite"></p></div>
+            <div class="transaction-table-wrap management-table-wrap" id="management-table-wrap">
+              <table class="transaction-table management-table"><thead><tr><th>TRANSACTION NAME</th><th>CATEGORY</th><th>DATE</th><th>PAYMENT METHOD</th><th>TYPE</th><th>AMOUNT</th><th>ACTIONS</th></tr></thead><tbody id="management-transaction-list"></tbody></table>
+              <div class="management-no-results" id="management-no-results" hidden><p>No transactions match these filters.</p><button class="text-action" type="button" data-clear-filters>Clear filters</button></div>
+            </div>
+            <div class="transaction-empty-state" id="management-empty-state" hidden>
+              <span class="empty-state-icon"><svg class="icon" aria-hidden="true"><use href="#icon-receipt"/></svg></span>
+              <h2>No transactions yet</h2><p>Your expenses and income will appear here once you add a transaction.</p>
+              <button class="button button-primary" type="button" data-action="add-expense"><svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg>Add transaction</button>
+            </div>
+          </section>
+        </section>
+
+        <section class="budgets-view" id="budgets-page" data-budgets-view hidden>
+          <div class="page-intro budgets-intro">
+            <div><p class="eyebrow">MONTHLY PLAN</p><h1>Budget management</h1><p class="intro-copy">Set your limits, stay on track, and see what’s left to spend.</p></div>
+            <button class="button button-primary" type="button" data-action="add-category-budget"><svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg>Add category budget</button>
+          </div>
+          <section class="budget-overview" aria-label="Monthly budget overview">
+            <article class="budget-overview-card overview-total"><div class="overview-card-top"><span>Total monthly budget</span><span class="overview-icon overview-icon-blue"><svg class="icon" aria-hidden="true"><use href="#icon-wallet"/></svg></span></div><strong id="overview-budget-total">₹0.00</strong><button class="text-action" type="button" data-action="set-budget">Edit monthly limit <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"/></svg></button></article>
+            <article class="budget-overview-card"><div class="overview-card-top"><span>Total amount spent</span><span class="overview-icon overview-icon-orange"><svg class="icon" aria-hidden="true"><use href="#icon-arrow-up"/></svg></span></div><strong id="overview-budget-spent">₹0.00</strong><small>Current month</small></article>
+            <article class="budget-overview-card"><div class="overview-card-top"><span>Remaining budget</span><span class="overview-icon overview-icon-green"><svg class="icon" aria-hidden="true"><use href="#icon-arrow-down"/></svg></span></div><strong id="overview-budget-remaining">₹0.00</strong><small id="overview-budget-remaining-note">Available to spend</small></article>
+            <article class="budget-overview-card"><div class="overview-card-top"><span>Budget utilization</span><span class="overview-icon overview-icon-violet"><svg class="icon" aria-hidden="true"><use href="#icon-chart"/></svg></span></div><strong id="overview-budget-utilization">0%</strong><div class="overview-progress"><span id="overview-budget-progress"></span></div><small id="overview-budget-status">of monthly limit used</small></article>
+          </section>
+          <div class="category-budget-heading"><div><h2>Category budgets</h2><p>Track spending against each monthly allocation.</p></div><span id="category-budget-count"></span></div>
+          <div class="category-budget-grid" id="category-budget-grid"></div>
+          <section class="budget-empty-state" id="budget-empty-state" hidden>
+            <span class="empty-state-icon"><svg class="icon" aria-hidden="true"><use href="#icon-wallet"/></svg></span>
+            <h2>No category budgets yet</h2><p>Create a category limit to see how your spending is tracking.</p>
+            <button class="button button-primary" type="button" data-action="add-category-budget"><svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg>Add category budget</button>
+          </section>
+        </section>
+
+        <section class="analytics-view" id="analytics-page" data-analytics-view hidden>
+          <div class="page-intro analytics-intro">
+            <div><p class="eyebrow">YOUR MONEY, IN FOCUS</p><h1>Analytics & reports</h1><p class="intro-copy">Understand your cash flow and the patterns behind it.</p></div>
+            <div class="analytics-toolbar">
+              <label class="select-wrap report-period-wrap"><span class="sr-only">Report period</span><select id="reports-period" aria-label="Analytics report period"><option value="week">This week</option><option value="month" selected>This month</option><option value="last-month">Last month</option><option value="last-3-months">Last 3 months</option><option value="year">This year</option></select><svg class="icon" aria-hidden="true"><use href="#icon-chevron"/></svg></label>
+              <button class="button button-primary" type="button" id="download-analytics-report">Download report</button>
+            </div>
+          </div>
+
+          <section class="analytics-summary-grid" aria-label="Financial analytics summary">
+            <article class="analytics-metric"><span>Total income</span><strong id="analytics-total-income">₹0.00</strong><small id="analytics-period-label">This month</small></article>
+            <article class="analytics-metric"><span>Total expenses</span><strong id="analytics-total-expenses">₹0.00</strong><small id="analytics-period-label-expenses">This month</small></article>
+            <article class="analytics-metric"><span>Net savings</span><strong id="analytics-net-savings">₹0.00</strong><small>Income minus expenses</small></article>
+            <article class="analytics-metric"><span>Average daily spending</span><strong id="analytics-average-daily">₹0.00</strong><small>Per day in selected period</small></article>
+            <article class="analytics-metric analytics-category-metric"><span>Highest spending category</span><strong id="analytics-highest-category">—</strong><small id="analytics-highest-amount">No expense data</small></article>
+          </section>
+
+          <div class="analytics-grid">
+            <section class="panel analytics-panel analytics-trend-panel" aria-labelledby="monthly-trend-title">
+              <div class="panel-header"><div><h2 id="monthly-trend-title">Monthly expense trend</h2><p>Spending across the last six months</p></div><span class="chart-unit" id="analytics-chart-unit">INR</span></div>
+              <div class="analytics-chart-wrap"><svg id="monthly-expense-chart" class="analytics-svg" viewBox="0 0 720 250" role="img" aria-label="Monthly expense totals for the last six months"></svg></div>
+            </section>
+            <section class="panel analytics-panel" aria-labelledby="category-donut-title">
+              <div class="panel-header"><div><h2 id="category-donut-title">Category breakdown</h2><p>Expense share in the selected period</p></div></div>
+              <div class="donut-layout" id="category-donut-layout">
+                <svg id="category-donut-chart" class="donut-svg" viewBox="0 0 180 180" role="img" aria-label="Expense share by category"></svg>
+                <div class="donut-legend" id="category-donut-legend"></div>
+              </div>
+              <p class="analytics-empty" id="category-donut-empty" hidden>No expenses in this period yet.</p>
+            </section>
+            <section class="panel analytics-panel" aria-labelledby="cash-flow-title">
+              <div class="panel-header"><div><h2 id="cash-flow-title">Income vs expenses</h2><p>Monthly cash flow · last six months</p></div></div>
+              <div class="analytics-legend"><span><i class="legend-dot legend-income"></i>Income</span><span><i class="legend-dot legend-expense"></i>Expenses</span></div>
+              <div class="analytics-chart-wrap"><svg id="cash-flow-chart" class="analytics-svg" viewBox="0 0 720 250" role="img" aria-label="Monthly income compared with expenses"></svg></div>
+            </section>
+            <section class="panel analytics-panel" aria-labelledby="weekly-spending-title">
+              <div class="panel-header"><div><h2 id="weekly-spending-title">Weekly spending</h2><p id="weekly-spending-range">Daily expenses for the selected period</p></div></div>
+              <div class="analytics-chart-wrap"><svg id="weekly-spending-chart" class="analytics-svg" viewBox="0 0 720 250" role="img" aria-label="Expenses for each day of the selected week"></svg></div>
+            </section>
+            <section class="panel analytics-panel report-summary-panel" aria-labelledby="report-summary-title">
+              <div class="panel-header"><div><h2 id="report-summary-title">Spending summary</h2><p id="report-summary-period">Selected period</p></div></div>
+              <dl class="report-summary-list">
+                <div><dt>Total money received</dt><dd id="report-total-received">₹0.00</dd></div>
+                <div><dt>Total money spent</dt><dd id="report-total-spent">₹0.00</dd></div>
+                <div><dt>Remaining amount</dt><dd id="report-remaining-amount">₹0.00</dd></div>
+                <div><dt>Highest spending category</dt><dd id="report-highest-category">—</dd></div>
+                <div><dt>Lowest spending category</dt><dd id="report-lowest-category">—</dd></div>
+              </dl>
+            </section>
+          </div>
+        </section>
+
+        <section class="savings-goals-view" id="savings-goals-page" data-savings-goals-view hidden>
+          <div class="page-intro savings-goals-intro">
+            <div><p class="eyebrow">SMALL STEPS, BIG PLANS</p><h1>Savings goals</h1><p class="intro-copy">Keep your next milestone within reach.</p></div>
+            <button class="button button-primary" type="button" data-action="add-savings-goal"><svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg>Add a goal</button>
+          </div>
+          <section class="savings-overview" aria-label="Savings goals overview">
+            <article><span>Total saved toward goals</span><strong id="goals-total-saved">₹0.00</strong></article>
+            <article><span>Goals in progress</span><strong id="goals-in-progress">0</strong></article>
+            <article><span>Goals completed</span><strong id="goals-completed">0</strong></article>
+          </section>
+          <div class="savings-goals-grid" id="savings-goals-grid"></div>
+          <section class="goals-empty-state" id="goals-empty-state" hidden>
+            <span class="empty-state-icon"><svg class="icon" aria-hidden="true"><use href="#icon-target"/></svg></span>
+            <h2>Your next goal starts here</h2><p>Create a savings goal and keep an eye on your progress.</p>
+            <button class="button button-primary" type="button" data-action="add-savings-goal"><svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg>Create your first goal</button>
+          </section>
+        </section>
+
+        <section class="settings-view" id="settings-page" data-settings-view hidden>
+          <div class="page-intro settings-intro">
+            <div><p class="eyebrow">YOUR ACCOUNT</p><h1>Settings & profile</h1><p class="intro-copy">Manage your student profile, preferences, and saved data.</p></div>
+          </div>
+          <div class="settings-grid">
+            <section class="panel settings-card profile-settings-card" aria-labelledby="profile-settings-title">
+              <div class="panel-header"><div><h2 id="profile-settings-title">Student profile</h2><p>Keep your account details up to date.</p></div></div>
+              <form id="profile-settings-form" class="settings-form">
+                <div class="profile-photo-row">
+                  <div class="profile-photo-preview" id="profile-photo-preview"><span id="profile-photo-initials">JD</span><img id="profile-photo-image" alt="Profile picture preview" hidden></div>
+                  <div class="profile-photo-controls"><strong>Profile picture</strong><small>Preview only; this image is not uploaded.</small><button class="button button-quiet" type="button" data-action="choose-profile-picture">Choose photo</button><input id="profile-picture-file" type="file" accept="image/*" hidden></div>
+                </div>
+                <div class="form-row"><label class="form-field">Full name<input name="fullName" type="text" autocomplete="name" maxlength="80" required></label><label class="form-field">Email address<input name="email" type="email" autocomplete="email" maxlength="120" required></label></div>
+                <div class="form-field"><label for="profile-college">College name</label><input id="profile-college" name="collegeName" type="text" maxlength="100" required></div>
+                <div class="form-row"><label class="form-field">Course / branch<input name="course" type="text" maxlength="80" required></label><label class="form-field">Academic year<select name="academicYear" required><option>Year 1</option><option>Year 2</option><option>Year 3</option><option>Year 4</option><option>Graduate</option><option>Other</option></select></label></div>
+                <div class="settings-form-actions"><button class="button button-primary" type="submit">Save profile</button></div>
+              </form>
+            </section>
+
+            <section class="panel settings-card preferences-card" aria-labelledby="preferences-title">
+              <div class="panel-header"><div><h2 id="preferences-title">Application preferences</h2><p>Make CampusSpend work the way you do.</p></div></div>
+              <form id="preferences-form" class="settings-form">
+                <div class="form-row"><label class="form-field">Currency<select name="currency" id="settings-currency"><option value="INR">Indian Rupee · INR</option><option value="USD">US Dollar · USD</option><option value="EUR">Euro · EUR</option><option value="GBP">British Pound · GBP</option></select></label><label class="form-field">Default monthly budget<span class="input-prefix"><span class="currency-symbol" data-currency-symbol aria-hidden="true">₹</span><input name="monthlyBudget" type="number" min="1" step="0.01" required></span></label></div>
+                <fieldset class="theme-setting"><legend>Appearance</legend><div class="theme-segment" role="group" aria-label="Color theme"><button type="button" data-theme-choice="light" aria-pressed="true">Light</button><button type="button" data-theme-choice="dark" aria-pressed="false">Dark</button></div></fieldset>
+                <fieldset class="notification-settings"><legend>Notification preferences</legend>
+                  <label><span><strong>Budget alerts</strong><small>Heads-up when you approach a spending limit.</small></span><input type="checkbox" name="budgetAlerts"></label>
+                  <label><span><strong>Weekly summary</strong><small>A quick recap of your recent spending.</small></span><input type="checkbox" name="weeklySummary"></label>
+                  <label><span><strong>Goal milestones</strong><small>Celebrate when you reach a savings target.</small></span><input type="checkbox" name="goalMilestones"></label>
+                </fieldset>
+                <div class="settings-form-actions"><button class="button button-primary" type="submit">Save preferences</button></div>
+              </form>
+            </section>
+
+            <section class="panel settings-card data-management-card" aria-labelledby="data-management-title">
+              <div class="panel-header"><div><h2 id="data-management-title">Data management</h2><p>Your information stays in this browser.</p></div></div>
+              <div class="data-actions">
+                <button class="data-action" type="button" id="export-all-data"><span><strong>Export all data</strong><small>Download your transactions, budgets, goals, and settings as JSON.</small></span><span class="data-action-label">Export</span></button>
+                <div class="data-action"><span><strong>Import data from JSON</strong><small>Restore a CampusSpend backup from this device.</small></span><button class="button button-quiet" type="button" data-action="choose-import-file">Import</button><input id="import-data-file" type="file" accept="application/json,.json" hidden></div>
+                <button class="data-action data-action-danger" type="button" data-action="clear-all-data"><span><strong>Clear all application data</strong><small>Remove saved transactions, budgets, goals, and profile settings.</small></span><span class="data-action-label">Clear data</span></button>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="placeholder-view" data-placeholder-view hidden aria-live="polite">
+          <div class="placeholder-icon"><svg class="icon" aria-hidden="true"><use href="#icon-grid"/></svg></div>
+          <p class="eyebrow">CAMPUSSPEND WORKSPACE</p><h1 id="placeholder-title">Transactions</h1><p>This section is ready for the next step. Your dashboard is set up and your navigation is working.</p>
+          <button class="button button-primary" type="button" data-view="dashboard">Back to dashboard</button>
+        </section>
+      </div>
+    </main>
+  </div>
+  <dialog class="action-dialog delete-confirm-dialog" id="delete-confirm-dialog" aria-labelledby="delete-confirm-title">
+    <div class="dialog-heading"><div><p class="eyebrow" id="delete-confirm-eyebrow">TRANSACTION</p><h2 id="delete-confirm-title">Delete transaction?</h2></div><button class="icon-button" type="button" aria-label="Close confirmation" data-delete-cancel><svg class="icon" aria-hidden="true"><use href="#icon-close"/></svg></button></div>
+    <p class="delete-confirm-copy" id="delete-confirm-copy"></p>
+    <div class="dialog-actions"><button class="button button-quiet" type="button" data-delete-cancel>Keep transaction</button><button class="button button-danger" type="button" data-delete-confirm>Delete transaction</button></div>
+  </dialog>
+</body>
+</html>
